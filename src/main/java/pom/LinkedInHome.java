@@ -19,16 +19,28 @@ public class LinkedInHome extends TestFactory{
 	WebDriver driver;
 	
 	@FindBy(xpath="//input[@placeholder='Search']")
-	WebElement txtSearch;
+	public WebElement txtSearch;
 	
 	@FindBy(xpath="//button/span[text()='Jobs']")
-	WebElement btnjob;
+	public WebElement btnjob;
 	
 	@FindBy(xpath = "//button[contains(@aria-label,'Experience')]")
-	WebElement drpExperience;
+	public WebElement drpExperience;
 	
 	@FindBy(xpath = "//button[@data-control-name='clear_filters']/span/span")
-	WebElement clearFilterCount;
+	public WebElement clearFilterCount;
+	
+	@FindBy(xpath = "//span[contains(@class,'search-vertical-filter')]")
+	public WebElement selectedfilter;
+	
+	@FindBy(xpath = "//span[text()='All filters']")
+	public WebElement allFilter;
+	
+	@FindBy(xpath = "//span[text()='Full-time']")
+	public WebElement fullTimeFilter;
+	
+	@FindBy(xpath = "//button[contains(@class,'search-advanced')]/span[text()='Apply']")
+	public WebElement btnApplyAdvancedFilter;
 	
 	public LinkedInHome(WebDriver driver) {
 		super(driver);
@@ -36,8 +48,7 @@ public class LinkedInHome extends TestFactory{
 	     PageFactory.initElements(driver, this);
 	}
 	
-	public void searchFilter(String searchText) throws InterruptedException{
-		super.waitForVisible(txtSearch);
+	public void searchFilter(String searchText) {
 		txtSearch.click();
 		txtSearch.sendKeys(searchText);
 		txtSearch.sendKeys(Keys.ENTER);
@@ -49,7 +60,7 @@ public class LinkedInHome extends TestFactory{
 		super.waitForVisible(drpExperience);
 	}
 	
-	public void selectExperienceLevel(String text) throws InterruptedException{
+	public void selectExperienceLevel(String text){
 		List<WebElement> exp = driver.findElements(By.xpath("//label[contains(@for,'experience')]/p/span[1]"));
 		int temp=0;
 		for(int i=0; i<exp.size(); i++){
@@ -63,7 +74,7 @@ public class LinkedInHome extends TestFactory{
 		ele.sendKeys(Keys.ENTER);
 	}
 	
-	public void filterCountValidation(String ExcpectedCount) throws InterruptedException{
+	public void filterCountValidation(String ExcpectedCount){
 		super.waitForVisible(clearFilterCount);
 		Assert.assertEquals(clearFilterCount.getText(), ExcpectedCount);
 	}

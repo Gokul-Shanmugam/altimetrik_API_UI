@@ -12,16 +12,16 @@ public class SignIn extends TestFactory{
 	WebDriver driver;
 	
 	@FindBy(xpath="//a[text()='Sign in']")
-	WebElement btnSignIn;
+	public WebElement btnSignIn;
 	
 	@FindBy(id = "username")
-	WebElement txtEmail;
+	public WebElement txtEmail;
 	
 	@FindBy(id = "password")
-	WebElement txtPassword;
+	public WebElement txtPassword;
 	
 	@FindBy(xpath = "//button[contains(text(),'Sign in')]")
-	WebElement btnSignin;
+	public WebElement btnSignin;
 	
 	public SignIn(WebDriver driver) {
 		super(driver);
@@ -29,15 +29,4 @@ public class SignIn extends TestFactory{
 	     PageFactory.initElements(driver, this);
 	}
 	
-	public void loginValidation(String email, String password) throws InterruptedException{
-		btnSignIn.click();
-		super.waitForVisible(txtEmail);
-		txtEmail.click();
-		txtEmail.sendKeys(email);
-		txtPassword.sendKeys(password);
-		btnSignin.click();
-	}
-	
-	
-
 }
