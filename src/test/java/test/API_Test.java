@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -59,6 +60,7 @@ public class API_Test {
 		getData.put("id", tf.getJSONValue(rs.asString(), "data.id"));
 		getData.put("name", name);
 		getData.put("cookie", ""+rs.getDetailedCookie("PHPSESSID"));
+		Reporter.log("Post Action Successful with response as --> "+rs.asString());
 //		System.out.println("id "+getData.get("id"));
 //		System.out.println("cookie "+getData.get("cookie"));
 
@@ -77,6 +79,7 @@ public class API_Test {
 				.when().get("/api/v1/employee/1").as(Employee.class);
 		
 		Assert.assertEquals("Tiger Nixon", em.getData().getEmployee_name());
+		Reporter.log("Get Action Successful");
 	}
 	
 	
@@ -90,7 +93,7 @@ public class API_Test {
 		Response rs = res.when().put("/api/v1/update/"+getData.get("id"))
 				.then().spec(responseSpecification).extract().response();
 		
-		System.out.println(rs.asString());
+		Reporter.log("PUT Action Successful with response as --> "+rs.asString());
 	}
 	
 	@DataProvider(name = "updateEmpDetails")
